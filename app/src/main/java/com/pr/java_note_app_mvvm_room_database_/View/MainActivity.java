@@ -45,12 +45,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mainViewModel= new ViewModelProvider(MainActivity.this).get(MainViewModel.class);
-        mainViewModel.getallnotelivedata().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(List<Note> notes) {
-                noteAdapter=new NoteAdapter(MainActivity.this,(ArrayList<Note>) notes);
-                binding.recyclerview1.setAdapter(noteAdapter);
-            }
+        mainViewModel.getallnotelivedata().observe(this, notes -> {
+            noteAdapter=new NoteAdapter(MainActivity.this,(ArrayList<Note>) notes);
+            binding.recyclerview1.setAdapter(noteAdapter);
         });
 
 
