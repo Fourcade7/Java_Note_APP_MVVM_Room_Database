@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         >
         <RelativeLayout
-
-            android:background="#F0F4F0F0"
+            android:background="@drawable/layoutbackground"
+            android:clickable="true"
             android:paddingLeft="10dp"
             android:id="@+id/relativelay1"
             android:layout_width="match_parent"

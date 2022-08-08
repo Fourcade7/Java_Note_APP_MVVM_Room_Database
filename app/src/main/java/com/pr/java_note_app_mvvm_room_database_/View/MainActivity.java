@@ -5,6 +5,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 import androidx.room.Room;
 
 import android.content.Intent;
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     MainViewModel mainViewModel;
     ActivityMainBinding binding;
     NoteAdapter noteAdapter;
+    SnapHelper snapHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
         appDatabase = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "note").allowMainThreadQueries().build();
         noteDao =appDatabase.userDao();
+
         binding.recyclerview1.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        snapHelper=new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(binding.recyclerview1);
+
 
 
 
@@ -46,12 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
         mainViewModel= new ViewModelProvider(MainActivity.this).get(MainViewModel.class);
         mainViewModel.getallnotelivedata().observe(this, notes -> {
+
             noteAdapter=new NoteAdapter(MainActivity.this,(ArrayList<Note>) notes);
             binding.recyclerview1.setAdapter(noteAdapter);
+
         });
 
 
 
 
     }
+
 }
